@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <PackageId>StockportGovUK.AspNetCore.Polly</PackageId>
+    <Title>A package that wraps setup and configuration of Polly</Title>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <VersionPrefix>0.1.0</VersionPrefix>
+    <Authors>Colin Lees, Jon Chiles, Jon Hadley</Authors>
+    <Company>Stockport Council</Company>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.Extensions.Http.Polly" Version="2.2.0" />
+    <PackageReference Include="Polly" Version="7.1.0" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="licenses\LICENSE.txt" Pack="true" PackagePath="$(PackageLicenseFile)"/>
+  </ItemGroup>
+
+</Project>

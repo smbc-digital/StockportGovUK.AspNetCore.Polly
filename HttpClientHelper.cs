@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Polly;
@@ -16,12 +17,21 @@ namespace StockportGovUK.AspNetCore.Polly
             AddBaseHttpClient<TClient, TImplementation>(services);
 
             var httpClientConfiguration = configuration.GetSection("HttpClientConfiguration").GetChildren();
-
             foreach (var config in httpClientConfiguration)
             {
-                AddHttpClients(services, config["name"], c =>
+                if(string.IsNullOrEmpty(config["name"]))
                 {
-                    c.BaseAddress = new Uri(config["baseUrl"]);
+                    // TODO: Create new custom exception type 
+                    throw new Exception("Name for HttpClient not specified");
+                }
+                
+                AddHttpClients(services, config["name"], c => 
+                {
+                    c.BaseAddress = string.IsNullOrEmpty(config["baseUrl"]) ? null : new Uri(config["baseUrl"]);
+
+                    c.DefaultRequestHeaders.Authorization = string.IsNullOrEmpty(config["authToken"])
+                        ? null 
+                        : new AuthenticationHeaderValue("Bearer", config["authToken"]);
                 });
             }
         }

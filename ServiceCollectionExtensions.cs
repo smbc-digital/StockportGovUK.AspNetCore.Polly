@@ -8,9 +8,9 @@ using Polly.Extensions.Http;
 
 namespace StockportGovUK.AspNetCore.Polly
 {
-    public static class HttpClientHelper
+    public static class ServiceCollectionExtensions
     {
-        public static void Register<TClient, TImplementation>(IConfiguration configuration, IServiceCollection services)
+        public static void AddHttpClients<TClient, TImplementation>(this IServiceCollection services, IConfiguration configuration)
             where TClient : class
             where TImplementation : class, TClient
         {
@@ -36,7 +36,7 @@ namespace StockportGovUK.AspNetCore.Polly
             }
         }
 
-        private static void AddBaseHttpClient<TClient, TImplementation>(IServiceCollection services)
+        private static void AddBaseHttpClient<TClient, TImplementation>(this IServiceCollection services)
             where TClient : class
             where TImplementation : class, TClient
         {

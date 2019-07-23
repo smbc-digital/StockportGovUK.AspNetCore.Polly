@@ -65,7 +65,7 @@ namespace StockportGovUK.AspNetCore.Polly
         {
             return HttpPolicyExtensions
                 .HandleTransientHttpError()
-                .CircuitBreakerAsync(2, TimeSpan.FromSeconds(10));
+                .CircuitBreakerAsync(2, TimeSpan.FromSeconds(30));
         }
     }
 }
